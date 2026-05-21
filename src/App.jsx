@@ -12,6 +12,7 @@ import { EventProvider } from './context/EventContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { NotifyProvider } from './context/NotifyContext';
 import NotifyWindow from './components/NotifyWindow';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function AppContent() {
   const { currentUser } = useAuth();
@@ -73,16 +74,20 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <NotifyProvider>
-        <EventProvider>
-          <Router>
-            <AppContent />
-            <TaskModal />
-          </Router>
-        </EventProvider>
-      </NotifyProvider>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <NotifyProvider>
+          <EventProvider>
+            <Router>
+              <ErrorBoundary>
+                <AppContent />
+              </ErrorBoundary>
+              <TaskModal />
+            </Router>
+          </EventProvider>
+        </NotifyProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
