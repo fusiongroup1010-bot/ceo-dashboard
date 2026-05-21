@@ -94,7 +94,11 @@ const TaskModal = () => {
     }
   };
 
-  const currentCategories = DEPARTMENTS.all || [];
+  const currentCategories = (DEPARTMENTS.all || []).filter(
+    d => d.id.toLowerCase() !== 'ceofs' && 
+         d.id.toLowerCase() !== 'ceo' && 
+         d.id.toLowerCase() !== 'secretary'
+  );
 
   const TypeIcon = form.type === 'meeting' ? Users : form.type === 'report' ? FileText : Tag;
   const typeColors = {

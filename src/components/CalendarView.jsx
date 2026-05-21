@@ -16,7 +16,11 @@ const CalendarView = () => {
   const { currentUser } = useAuth();
   const canEdit = isEditable;
   
-  const currentDepts = DEPARTMENTS[activeLocation] || [];
+  const currentDepts = (DEPARTMENTS[activeLocation] || []).filter(
+    d => d.id.toLowerCase() !== 'ceofs' && 
+         d.id.toLowerCase() !== 'ceo' && 
+         d.id.toLowerCase() !== 'secretary'
+  );
 
   // Active category filter
   const [activeCategories, setActiveCategories] = useState({});
