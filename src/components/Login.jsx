@@ -4,16 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { Key, Eye, EyeOff } from 'lucide-react';
 
 const DEPT_LOGINS = [
-  { id: 'rnd', name: 'Phòng RNDSP', displayNames: ['Trà', 'Thanh', 'Nam'] },
-  { id: 'design', name: 'Phòng HY Design', displayNames: ['Linh'] },
-  { id: 'mms', name: 'Phòng MMKP', displayNames: ['Lan Anh', 'Trang'] },
-  { id: 'hn-mkt', name: 'Phòng HN MKT', displayNames: ['Phuc'] },
-  { id: 'evolution', name: 'Phòng Evolution', displayNames: ['Thảo'] },
-  { id: 'crm', name: 'Phòng CRM', displayNames: ['CRM1', 'CRM2'] }
+  { id: 'hr-ga', name: 'HR-GA HQ', displayNames: ['Linh'] },
+  { id: 'acc', name: 'ACC HQ', displayNames: ['Thuy', 'Minh'] },
+  { id: 'rnd', name: 'RNDSP', displayNames: ['Nam'] },
+  { id: 'hcm-bm', name: 'HCM Branch Manager', displayNames: ['Ji'] },
+  { id: 'hn-bm', name: 'HN Branch Manager', displayNames: ['Mai Huong'] },
+  { id: 'sale-online', name: 'Sale Online', displayNames: ['Trang Sam'] },
+  { id: 'purchasing', name: 'Purchasing', displayNames: ['Men'] },
+  { id: 'como', name: 'COMO', displayNames: ['Mun'] },
+  { id: 'cpo', name: 'CPO', displayNames: ['Lee'] }
 ];
 
 const Login = () => {
-  const [selectedDeptId, setSelectedDeptId] = useState('rnd');
+  const [selectedDeptId, setSelectedDeptId] = useState('hr-ga');
   const [selectedName, setSelectedName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
