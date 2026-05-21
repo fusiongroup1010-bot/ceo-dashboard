@@ -12,8 +12,8 @@ export const EMPLOYEES = [
   { id: 'crm', name: 'CRM Department', role: 'admin', pass: 'FS1234', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'CRM' },
 
   // CEO - Access & Edit All
-  { id: 'CEOFS', name: 'CEO', role: 'admin', pass: 'CEOChoFS', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'CEO', isSpecialAccount: true },
-  { id: 'Secretary', name: 'Secretary', role: 'admin', pass: 'SecChoFS', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'Secretary', isSpecialAccount: true },
+  { id: 'CEOFS', name: 'CEO', role: 'admin', pass: 'FS1234', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'CEO', isSpecialAccount: true },
+  { id: 'Secretary', name: 'Secretary', role: 'admin', pass: 'FS1234', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'Secretary', isSpecialAccount: true },
   { id: 'LeLienFS', name: 'Le Lien', role: 'admin', pass: 'fusion2026', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'CEO' },
   { id: 'ThanhTraFS', name: 'Thanh Tra', role: 'admin', pass: 'fusion2026', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'CEO' },
   { id: 'TrAnhFS', name: 'Tr Anh', role: 'admin', pass: 'fusion2026', allowedLocations: ['hanoi', 'hcm', 'hungyen'], editableLocations: ['hanoi', 'hcm', 'hungyen'], canSendNotify: true, notifyScope: 'all', title: 'Admin' },

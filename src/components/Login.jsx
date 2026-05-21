@@ -20,7 +20,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSpecialLogin, setIsSpecialLogin] = useState(false);
-  const [specialId, setSpecialId] = useState('');
+  const [specialId, setSpecialId] = useState('CEOFS');
   
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -39,11 +39,13 @@ const Login = () => {
       setError('');
       setLoading(true);
       
-      const loginId = isSpecialLogin ? specialId.trim() : selectedDeptId;
-      const customName = isSpecialLogin ? specialId.trim().toUpperCase() : selectedName;
+      const loginId = isSpecialLogin ? specialId : selectedDeptId;
+      const customName = isSpecialLogin 
+        ? (specialId === 'CEOFS' ? 'CEO' : 'Secretary') 
+        : selectedName;
 
       if (isSpecialLogin && !loginId) {
-        throw new Error('Vui lòng nhập mã đăng nhập đặc biệt.');
+        throw new Error('Vui lòng chọn tài khoản đặc biệt.');
       }
       
       // Perform login with selected department ID or special ID, typed password, and chosen display name
@@ -226,7 +228,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           
           {isSpecialLogin ? (
-            /* Special ID Input */
+            /* Special Account Select Dropdown */
             <div style={{ marginBottom: '20px' }}>
               <label style={{
                 fontSize: '11px',
@@ -237,14 +239,11 @@ const Login = () => {
                 marginBottom: '8px',
                 display: 'block'
               }}>
-                Mã đăng nhập đặc biệt / Special ID
+                Tài khoản đặc biệt / Special Account
               </label>
-              <input
-                type="text"
+              <select
                 value={specialId}
                 onChange={(e) => setSpecialId(e.target.value)}
-                required
-                placeholder="Nhập mã đăng nhập (ví dụ: CEOFS)..."
                 style={{
                   width: '100%',
                   padding: '13px 16px',
@@ -253,9 +252,10 @@ const Login = () => {
                   fontFamily: 'inherit',
                   fontSize: '15px',
                   fontWeight: '700',
-                  color: '#1e293b',
                   background: '#ffffff',
+                  color: '#1e293b',
                   outline: 'none',
+                  cursor: 'pointer',
                   transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                 }}
                 onFocus={(e) => {
@@ -266,7 +266,10 @@ const Login = () => {
                   e.target.style.borderColor = '#cbd5e1';
                   e.target.style.boxShadow = 'none';
                 }}
-              />
+              >
+                <option value="CEOFS">CEO</option>
+                <option value="Secretary">Secretary</option>
+              </select>
             </div>
           ) : (
             <>
