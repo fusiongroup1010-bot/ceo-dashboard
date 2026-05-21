@@ -34,7 +34,16 @@ export const NotifyProvider = ({ children }) => {
       // Filter client-side for simplicity in this demo, or use complex Firestore queries
       // Recipients can be: 'all', location (hanoi, hcm, hungyen), or specific user ID
       const myNotifs = allNotifs.filter(n => {
-        if (n.recipients.includes('all')) return true;
+        // Always show to sender and admins
+        if (n.senderId === currentUser.id) return true;
+        const isAdmin = ['ceofs', 'lelienfs', 'thanhtrafs', 'tranhfs', 'nganhfs', 'tnhanfs', 'nanhfs', 'tnganfs', 'phlinhfs'].includes(currentUser.id.toLowerCase());
+        if (isAdmin) return true;
+
+        if (n.recipients.includes('all')) {
+          const targetDepts = ['rnd', 'design', 'mms', 'hn-mkt', 'evolution', 'crm'];
+          return targetDepts.includes(currentUser.id.toLowerCase());
+        }
+
         if (n.recipients.includes(currentUser.id)) return true;
         // Check if user is in a location that is a recipient
         const userLocs = currentUser.allowedLocations || [];
@@ -93,7 +102,10 @@ export const NotifyProvider = ({ children }) => {
     // Expand recipients to actual employee IDs
     const recipientIds = EMPLOYEES
       .filter(emp => {
-        if (notif.recipients.includes('all')) return emp.id !== 'Guest';
+        if (notif.recipients.includes('all')) {
+          const targetDepts = ['rnd', 'design', 'mms', 'hn-mkt', 'evolution', 'crm'];
+          return targetDepts.includes(emp.id.toLowerCase());
+        }
         if (notif.recipients.includes(emp.id)) return true;
         // location-based
         return notif.recipients.some(r => emp.allowedLocations?.includes(r));
