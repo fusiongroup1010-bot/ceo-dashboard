@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://fusiongroup1010-bot.github.io/deadline-dashboard-rd/",
+  "homepage": "https://fusiongroup1010-bot.github.io/ceo-dashboard/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
