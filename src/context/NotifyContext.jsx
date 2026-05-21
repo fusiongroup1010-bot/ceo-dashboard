@@ -24,7 +24,7 @@ export const NotifyProvider = ({ children }) => {
 
     // Query for notifications where current user is a recipient or it's public
     const q = query(
-      collection(db, 'notifications_ceo_dashboard'),
+      collection(db, 'notifications_sale_online'),
       orderBy('createdAt', 'desc')
     );
 
@@ -35,19 +35,19 @@ export const NotifyProvider = ({ children }) => {
       // Recipients can be: 'all', location (hanoi, hcm, hungyen), or specific user ID
       const myNotifs = allNotifs.filter(n => {
         // Always show to sender and admins
-        if (n.senderId === currentUser?.id) return true;
-        const isAdmin = ['ceofs', 'lelienfs', 'thanhtrafs', 'tranhfs', 'nganhfs', 'tnhanfs', 'nanhfs', 'tnganfs', 'phlinhfs'].includes(currentUser?.id?.toLowerCase() || '');
+        if (n.senderId === currentUser.id) return true;
+        const isAdmin = ['ceofs', 'lelienfs', 'thanhtrafs', 'tranhfs', 'nganhfs', 'tnhanfs', 'nanhfs', 'tnganfs', 'phlinhfs'].includes(currentUser.id.toLowerCase()) || currentUser.isSpecialAccount;
         if (isAdmin) return true;
 
-        if (n.recipients && n.recipients.includes('all')) {
+        if (n.recipients.includes('all')) {
           const targetDepts = ['rnd', 'design', 'mms', 'hn-mkt', 'evolution', 'crm'];
-          return targetDepts.includes(currentUser?.id?.toLowerCase() || '');
+          return targetDepts.includes(currentUser.id.toLowerCase());
         }
 
-        if (n.recipients && n.recipients.includes(currentUser?.id)) return true;
+        if (n.recipients.includes(currentUser.id)) return true;
         // Check if user is in a location that is a recipient
-        const userLocs = currentUser?.allowedLocations || [];
-        return n.recipients && n.recipients.some(r => userLocs.includes(r));
+        const userLocs = currentUser.allowedLocations || [];
+        return n.recipients.some(r => userLocs.includes(r));
       });
 
       setNotifications(myNotifs);
@@ -71,24 +71,24 @@ export const NotifyProvider = ({ children }) => {
       pinned: false
     };
 
-    await addDoc(collection(db, 'notifications_ceo_dashboard'), payload);
+    await addDoc(collection(db, 'notifications_sale_online'), payload);
   };
 
   const markAsRead = async (id) => {
     if (!currentUser) return;
-    const ref = doc(db, 'notifications_ceo_dashboard', id);
+    const ref = doc(db, 'notifications_sale_online', id);
     await updateDoc(ref, {
       readBy: arrayUnion(currentUser.id)
     });
   };
 
   const togglePin = async (id, currentVal) => {
-    const ref = doc(db, 'notifications_ceo_dashboard', id);
+    const ref = doc(db, 'notifications_sale_online', id);
     await updateDoc(ref, { pinned: !currentVal });
   };
 
   const deleteNotification = async (id) => {
-    await deleteDoc(doc(db, 'notifications_ceo_dashboard', id));
+    await deleteDoc(doc(db, 'notifications_sale_online', id));
   };
 
   /**
@@ -102,13 +102,13 @@ export const NotifyProvider = ({ children }) => {
     // Expand recipients to actual employee IDs
     const recipientIds = EMPLOYEES
       .filter(emp => {
-        if (notif.recipients && notif.recipients.includes('all')) {
+        if (notif.recipients.includes('all')) {
           const targetDepts = ['rnd', 'design', 'mms', 'hn-mkt', 'evolution', 'crm'];
-          return targetDepts.includes(emp.id?.toLowerCase() || '');
+          return targetDepts.includes(emp.id.toLowerCase());
         }
-        if (notif.recipients && notif.recipients.includes(emp.id)) return true;
+        if (notif.recipients.includes(emp.id)) return true;
         // location-based
-        return notif.recipients && notif.recipients.some(r => emp.allowedLocations?.includes(r));
+        return notif.recipients.some(r => emp.allowedLocations?.includes(r));
       })
       .map(emp => emp.id);
 
